@@ -1,19 +1,15 @@
 package org.example;
 
-import org.example.calculator.Calculator;
-import org.example.calculator.vo.PositiveNumber;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.*;
+import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.nio.charset.StandardCharsets;
 
 public class CustomWebApplicationServer {
     private final int port;
     private static final Logger logger = LoggerFactory.getLogger(CustomWebApplicationServer.class);
-
 
     public CustomWebApplicationServer(int port) {
         this.port = port;
@@ -30,6 +26,9 @@ public class CustomWebApplicationServer {
             // server socket 이 client socket 을 기다리게 한다.
             while ((clientSocket = serverSocket.accept()) != null) {
                 logger.info("[CustomWebApplicationServer] client connected!");
+                /**
+                 * Step2 - 사용자 요청이 들어올 때 마다 Thread 를 새로 생성해서 사용자 요청을 처리하도록 한다.
+                 */
                 new Thread(new ClientRequestHandler(clientSocket)).start();
             }
         }

@@ -26,8 +26,6 @@ public class ClientRequestHandler implements Runnable {
          * 만약 메인쓰레드가 해당 작업을 진행하는 도중 블로킹이 걸리게 된다면,
          * 메인 쓰레드가 작업을 끝낼때 까지 기다려야하는 상황이 발생,
          * 이때문에 메인 쓰레드가 아닌 별도 쓰레드로 작업을 진행하도록 로직 수정이 필요.
-         *
-         * Step2 - 사용자 요청이 들어올 때 마다 Thread 를 새로 생성해서 사용자 요청을 처리하도록 한다.
          */
         try (InputStream in = clientSocket.getInputStream(); OutputStream os = clientSocket.getOutputStream()) {
             BufferedReader br = new BufferedReader(new InputStreamReader(in, StandardCharsets.UTF_8));
